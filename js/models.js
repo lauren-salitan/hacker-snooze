@@ -14,8 +14,6 @@ class Story {
 
   getHostName() {
     return "hostname.com";
-    // let storyURL = new URL(this.url);
-    // return storyURL.hostname;
   }
 }
 
@@ -41,15 +39,6 @@ class StoryList {
      * @returns {Story}.
      */
     async addStory(user, newStory) {
-          // UNIMPLEMENTED: complete this function!
-      // const response = await axios.post(`${BASE_URL}/stories`, {
-      //   token: user.loginToken,
-      //   story: newStory
-      // });
-  
-      // const story = new Story(response.data.story);
-      // this.stories.unshift(story);
-      // return story;
 
 
         try {
@@ -72,10 +61,6 @@ class StoryList {
 
 
 class User {
-  /** Make user instance from obj of user data and a token:
-   *   - {username, name, createdAt, favorites[], ownStories[]}
-   *   - token
-   */
 
   constructor({
                 username,
@@ -89,20 +74,11 @@ class User {
     this.name = name;
     this.createdAt = createdAt;
 
-    // instantiate Story instances for the user's favorites and ownStories
     this.favorites = favorites.map(s => new Story(s));
     this.ownStories = ownStories.map(s => new Story(s));
 
-    // store the login token on the user so it's easy to find for API calls.
     this.loginToken = token;
   }
-
-  /** Register new user in API, make User instance & return it.
-   *
-   * - username: a new username
-   * - password: a new password
-   * - name: the user's full name
-   */
 
   static async signup(username, password, name) {
     const response = await axios({
@@ -125,12 +101,6 @@ class User {
     );
   }
 
-  /** Login in user with API, make User instance & return it.
-
-   * - username: an existing user's username
-   * - password: an existing user's password
-   */
-
   static async login(username, password) {
     const response = await axios({
       url: `${BASE_URL}/login`,
@@ -151,10 +121,6 @@ class User {
       response.data.token
     );
   }
-
-  /** When we already have credentials (token & username) for a user,
-   *   we can log them in automatically. This function does that.
-   */
 
   static async loginViaStoredCredentials(token, username) {
     try {
